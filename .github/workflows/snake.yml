@@ -1,0 +1,66 @@
+name: GitHub Profile Automation 
+
+on:
+  schedule:
+    - cron: "0 0 * * *"  
+  workflow_dispatch:  
+  push:
+    branches:
+      - main  
+
+jobs:
+  generate_snake_animation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Generate GitHub Contributions Snake Animation
+        uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
+            dist/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to Output Branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: output
+          commit_message: "Update snake animation [skip ci]"
+
+  update_readme_timestamp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Pull Latest Changes
+        run: |
+          git pull origin main --rebase || echo "No updates to rebase"
+
+      - name: Preserve README and Add Timestamp
+        run: |
+          # Remove existing timestamp if present
+          sed -i '/Last updated:/d' README.md || true
+          
+          # Add the new timestamp at the bottom of README
+          echo "" >> README.md
+          echo "🕒 **Last updated:** $(date -u)" >> README.md
+
+
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "📅 Auto-update README timestamp [skip ci]" || echo "No changes to commit"
+          git pull origin main --rebase  
+          git push origin main
