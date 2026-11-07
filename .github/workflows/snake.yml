@@ -19,7 +19,7 @@ jobs:
       - name: Generate GitHub Contributions Snake Animation
         uses: Platane/snk@v3
         with:
-          github_user_name: ${{ github.repository_owner }}
+          github_user_name: ${{ M0hamedGard0ud }}
           outputs: |
             dist/github-snake.svg
             dist/github-snake-dark.svg?palette=github-dark
