@@ -149,11 +149,7 @@ I continue to expand my expertise in **AI, Data Science, and modern frameworks**
 Committed to **innovation and impact**, I strive to bridge **biology, AI, and software development**, crafting **cutting-edge solutions that advance healthcare and technology**. 🚀
 
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/M0hamedGard0ud/M0hamedGard0ud/output/github-snake-dark.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/M0hamedGard0ud/M0hamedGard0ud/output/github-snake.svg" />
-    <img alt="GitHub Snake Animation" src="https://raw.githubusercontent.com/M0hamedGard0ud/M0hamedGard0ud/output/github-snake.svg" />
-  </picture>
+  <img src="https://raw.githubusercontent.com/M0hamedGard0ud/gitrepo/output/snake.svg" alt="Snake animation" />
 </p>
 
 
